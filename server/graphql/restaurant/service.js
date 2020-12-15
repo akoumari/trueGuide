@@ -12,7 +12,7 @@ import { ObjectDoesNotExist } from "../errors/ObjectDoesNotExist";
 
 const UserService = {
   getAllRestaurants: () => {
-    return Restaurant.find({});
+    return Restaurant.find({isDeleted: false});
   },
 
   getRestaurantById: (id) => {

@@ -5,9 +5,9 @@ const phone = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ 
 const onlyAlpha = /^[A-Za-z ]*$/;
 
 const restaurantValidation = yup.object().shape({
-  title: yup.string().required(),
-  lyrics: yup.string().required(),
-  url: yup.string().required().matches(url, "Restaurant url is not valid"),
+  name: yup.string().required(),
+  address: yup.string().required(),
+  number: yup.string().required().matches(url, "Restaurant url is not valid"),
   imageUrl: yup.string().required().matches(url, "Image url is not valid"),
 });
 

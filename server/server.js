@@ -11,21 +11,14 @@ dotenv.config();
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
 
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
-  context: ({ req, res }) => ({ req, res, auth: authCtx(req) }),
+  resolvers
 });
 
-server.applyMiddleware({ app, cors: false });
+server.applyMiddleware({app});
 
 const db = process.env.MONGO_URI;
 mongoose

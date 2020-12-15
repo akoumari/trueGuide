@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.6",
     "@mapbox/polyline": "^1.1.1",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
@@ -15,9 +16,14 @@
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
     "apollo-boost": "^0.4.9",
+    "apollo-link-http": "^1.5.17",
+    "cross-fetch": "^3.0.4",
     "expo": "^39.0.5",
     "expo-sharing": "^8.4.1",
     "expo-status-bar": "~1.0.2",
+    "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.3",
+    "http-proxy-middleware": "^1.0.3",
     "match-sorter": "^6.0.1",
     "react": "16.13.1",
     "react-apollo": "^3.1.5",
@@ -33,11 +39,7 @@
     "react-native-screens": "^2.10.1",
     "react-native-splash-screen": "^3.2.0",
     "react-native-star-rating": "^1.1.0",
-    "react-native-web": "~0.13.12",
-    "cross-fetch": "^3.0.4",
-    "graphql": "^14.6.0",
-    "graphql-tag": "^2.10.3",
-    "http-proxy-middleware": "^1.0.3"
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

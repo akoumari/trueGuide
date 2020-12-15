@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Button, StyleSheet, SafeAreaView, ScrollView  } from "react-native";
 import RestaurantInfo from "./Resuseables/RestaurantInfo";
 import RatingWithStar from "./Rating/RatingWithStar";
 import {
@@ -10,70 +10,52 @@ import {
   TouchableOpacity,
 } from "react-native-elements";
 import { matchSorter } from "match-sorter";
+import { useQuery, gql } from '@apollo/client';
+
+const GET_RESTOS = gql`query restaurants{
+  restaurants{
+    id
+    name
+    address
+    number
+    imageUrl
+    details	
+    tags
+    latitude
+    longitude
+  }
+  
+}`;
+
+
+
 
 export default function home({ navigation }) {
   const theme = {
     color: "#000",
   };
-  const restaurants = [
-    {
-      id: 1,
-      name: "Dinos",
-      address: "1 Richmond St W, Toronto",
-      number: "416 - 069 - 420",
-      image: "./assets/dinos",
-      details: "A cozy resauraunt with a very home-y vibe.... Lots of food",
-      tags: ["talian", "nona", "meatballs"],
-      latitude: 43.65139,
-      longitude: -79.379288,
-    },
-    {
-      id: 2,
-      name: "Ginos",
-      address: "49 Front St E, Toronto",
-      number: "416 - 069 - 420",
-      image: "./assets/dinos",
-      details: "A cozy resauraunt with a very home-y vibe.... Lots of food",
-      tags: ["talian", "meat", "meatballs"],
-      latitude: 43.64798,
-      longitude: -79.374268,
-    },
-    {
-      id: 3,
-      name: "Tinos",
-      address: "163 Spadina Ave, Toronto",
-      number: "416 - 069 - 420",
-      image: "./assets/dinos",
-      details: "A cozy resauraunt with a very home-y vibe.... Lots of food",
-      tags: ["talian", "fire", "nonvegan"],
-      latitude: 43.64852,
-      longitude: -79.39588,
-    },
-    {
-      id: 4,
-      name: "Linos",
-      address: "1 Benvenuto Pl, Toronto",
-      number: "416 - 069 - 420",
-      image: "./assets/dinos",
-      details: "A cozy resauraunt with a very home-y vibe.... Lots of food",
-      tags: ["talian", "fire", "vegan"],
-      latitude: 43.68156,
-      longitude: -79.39995,
-    },
-  ];
+
+  const {loading, error , data, refetch} = useQuery(GET_RESTOS,{pollInterval: 500,})
 
   const [searchText, setSearchText] = useState("", []);
   const [tagSearch, setTagSearch] = useState("", []);
 
   const filterBySearchText = () =>
-    matchSorter(restaurants, searchText, { keys: ["name", "tags"] });
+    matchSorter(data.restaurants, searchText, { keys: ["name", "tags"] });
   const filterByTagText = () =>
-    matchSorter(restaurants, tagSearch, {
+    matchSorter(data.restaurants, tagSearch, {
       threshold: matchSorter.rankings.EQUAL,
       keys: ["tags"],
     });
-
+    if(loading){return(
+      <View><Text>loading...</Text></View>
+    )}
+    if(error){return(
+      <View><Text>error...{error.message}{console.log(error)}</Text></View>
+    )}
   return (
+    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.scrollView}>
     <View style={styles.container}>
       <SearchBar
         placeholder="Type Here..."
@@ -83,10 +65,10 @@ export default function home({ navigation }) {
         }}
         value={searchText}
       />
-
+<Button title={"refresh"} onPress={()=> refetch()}/>
       {searchText == "" &&
         tagSearch == "" &&
-        restaurants.map((restaurant) => (
+        data.restaurants.map((restaurant) => (
           <View style={{ margin: 10 }}>
             <RestaurantInfo key={restaurant.id} restaurant={restaurant} />
             <View
@@ -250,6 +232,8 @@ export default function home({ navigation }) {
         </View>
       )}
     </View>
+    </ScrollView>
+    </SafeAreaView>
   );
 }
 
