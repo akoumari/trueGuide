@@ -28,8 +28,8 @@ const DetailsContainer = (props) => {
   const {navigation} = props
   console.log(props.route.params.restaurant.longitude);
   const { restaurant } = props.route.params;
-  const [Longitude, setLongitude] = useState(restaurant.longitude);
-  const [Latitude, setLatitude] = useState(restaurant.latitude);
+  const [Longitude, setLongitude] = useState(parseFloat(restaurant.longitude));
+  const [Latitude, setLatitude] = useState(parseFloat(restaurant.latitude));
   const [deleteResto] = useMutation(DELETE_RESTO)
   console.log(Longitude);
 
