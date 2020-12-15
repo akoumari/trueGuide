@@ -51,7 +51,7 @@ deleteRestaurant($id:ID!){
 }`;
 
 
-export default function RestaurantForm(props) {
+export default function RestaurantFormEdit(props) {
   //  const {id} = props;
   const { navigation } = props;
   const { restaurant } = props.route.params;

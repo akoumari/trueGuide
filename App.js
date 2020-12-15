@@ -45,13 +45,13 @@ export default function App() {
               fontWeight: "bold",
             },
             headerRight: () => (
-              <View style={{ flexDirection:"row", justifyContent:"space-around"}}>
+              <View style={{ flexDirection:"row", justifyContent:"center"}}>
 
-                <Button  style={{flex: 5}}
+                <Button 
                   title="Add"
-                  onPress={() => navigation.navigate("edit")}
+                  onPress={() => navigation.navigate("Add")}
                 />
-                <Button style={{flex: 5}}
+                <Button style={{flex: 1}}
                   title="About Us"
                   onPress={() => navigation.navigate("About Screen")}
                 />
